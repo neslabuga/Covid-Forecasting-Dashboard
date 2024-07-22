@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COVID-19 Forecast Evaluation Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Neuro-Symbolic Computing Research Lab</h1>
+    <h2>COVID-19 FORECAST EVALUATION DASHBOARD</h2>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="{{ url_for('home') }}">Home</a></li>
+      <li><a href="#">Dashboard Visualization</a></li>
+      <li><a href="#">Github</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <aside>
+      <h3>Filters</h3>
+      <div class="filter-group">
+        <label>Outcome</label>
+        <select>
+          <option value="covid">Covid Cases</option>
+        </select>
+        <label>Location</label>
+        <select id="location-select">
+          <option value="USA">United States</option>
+        </select>
+        <label for="horizon-select">Select Target Date:</label>
+        <select id="horizon-select">
+          <option value="horizon1">Week 1</option>
+          <option value="horizon2">Week 2</option>
+          <option value="horizon3">Week 3</option>
+        </select>
+        <label for="model-select">Select Model:</label>
+        <select id="model-select">
+          <option value="PatchTST">PatchTST</option>
+          <option value="Dlinear">Dlinear</option>
+          <option value="GRU">GRU</option>
+          <option value="NLinear">NLinear</option>
+        </select>
+        <button class="analysis-button" onclick="loadCovidCasesAnalysis()">Submit</button>
+      </div>
+    </aside>
+    <main>
+      <div id="graph-container"></div>
+      <div id="data-summary-container"></div>
+    </main>
+  </div>
+  <script>
+    function loadCovidCasesAnalysis() {
+      var model = $('#model-select').val();
+      var horizon = $('#horizon-select').val();
+
+      $.ajax({
+        url: "{{ url_for('load_covid_cases_analysis') }}",
+        method: "GET",
+        data: { model: model, horizon: horizon },
+        success: function(response) {
+          if (response.graph_json) {
+            var graph_json = JSON.parse(response.graph_json);
+            Plotly.newPlot('graph-container', graph_json.data, graph_json.layout);
+          } else {
+            $('#graph-container').html('<p>Error loading graph</p>');
+          }
+
+          if (response.data_summary) {
+            var dataSummary = response.data_summary;
+            var summaryHtml = '<h3>Data Summary</h3>';
+            dataSummary.forEach(function(item) {
+              summaryHtml += '<div>';
+              summaryHtml += '<p><strong>Model Run:</strong> ' + item.model_run + '</p>';
+              summaryHtml += '<p><strong>Best Real MAE:</strong> ' + item.best_realMAE + '</p>';
+              summaryHtml += '<p><strong>Best MAE:</strong> ' + item.best_MAE + '</p>';
+              summaryHtml += '<p><strong>Best SMAPE:</strong> ' + item.best_sMAPE + '</p>';
+              summaryHtml += '<p><strong>Real MAE List:</strong> ' + item.realMAE_list.join(', ') + '</p>';
+              summaryHtml += '<p><strong>MAE List:</strong> ' + item.mae_list.join(', ') + '</p>';
+              summaryHtml += '<p><strong>SMAPE List:</strong> ' + item.smape_list.join(', ') + '</p>';
+              summaryHtml += '</div><hr>';
+            });
+            $('#data-summary-container').html(summaryHtml);
+          } else {
+            $('#data-summary-container').html('<p>Error loading data summary</p>');
+          }
+        },
+        error: function(error) {
+          console.log("Error loading COVID cases analysis graph:", error);
+          $('#graph-container').html('<p>Error loading graph</p>');
+          $('#data-summary-container').html('<p>Error loading data summary</p>');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neuro-Symbolic Computing Research Lab</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Neuro-Symbolic Computing Research Lab</h1>
+      <h2>COVID-19 FORECAST EVALUATION DASHBOARD</h2>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="{{ url_for('visualization') }}">Dashboard Visualization</a></li>
+        <li><a href="#">Github</a></li>
+        <!-- <li><a href="#">Dataset</a></li> -->
+      </ul>
+    </nav>
+    <main>
+      <section class="intro">
+        <p>
+          This platform, a collaborative effort spearheaded by Neuro-Symbolic
+          Computing Research Lab, compiles and assesses a wide array of COVID-19
+          forecasts. These forecasts offer insights into expected
+           case counts and other vital
+          metrics.
+        </p>
+      </section>
+      <section class="publications">
+        <h3>Representative Publications:</h3>
+        <article>
+          <h4>S. Rana, N. H. Barna, and J.A. Miller</h4>
+          <p>
+            <strong
+              >Exploring the Predictive Power of Correlation and Mutual
+              Information in Attention Temporal Graph Convolutional Network for
+              COVID-19 Forecasting</strong
+            ><br />
+            Proceedings of the 12th International Conference on Big Data
+            (BigData 2023), Lecture Notes in Computer Science (LNCS, volume
+            14203), Honolulu, Hawaii (September 23-25, 2023) pp. 18-33
+          </p>
+          <div class="badges">
+            <a href="https://link.springer.com/chapter/10.1007/978-3-031-44725-9_2" target="_blank" class="badge-link">
+              <span class="badge">Link to Publication</span>
+            </a>
+          </div>
+        </article>
+        <article>
+          <h4>
+            M. Toutiaee, X. Li, Y. Chaudhari, S. Sivaraja, A. Venkataraj, I.
+            Javeri, Y. Ke, I. B. Arpinar, N. Lazar, and J. A. Miller
+          </h4>
+          <p>
+            <strong
+              >Improving COVID-19 Forecasting using Exogenous Variables</strong
+            ><br />
+            Proceedings of the 7th ACM KDD Workshop on Mining and Learning from
+            Time Series (MileTS 2021) Virtual/Singapore (August 2021) pp. 1-6
+          </p>
+          <div class="badges">
+            <a href="https://arxiv.org/abs/2107.10397" target="_blank" class="badge-link">
+              <span class="badge">Link to Publication</span>
+            </a>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
