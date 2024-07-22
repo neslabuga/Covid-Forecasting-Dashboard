@@ -1,9 +1,4 @@
 
 Flask==3.0.3
-flask-lambda==0.0.4
-matplotlib==3.9.1
-numpy==1.24.4
-packaging==24.1
-pandas==2.2.2
-plotly==5.22.0
+
 
