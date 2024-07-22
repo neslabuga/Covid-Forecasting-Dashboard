@@ -46,7 +46,7 @@ def generate_covid_cases_graph(model, horizon):
 
         fig.update_layout(
             title="Covid 19 Weekly Forecast",
-            xaxis_title="Days",
+            xaxis_title="time-steps",
             yaxis_title='new_cases',
             legend_title="Legend"
         )
