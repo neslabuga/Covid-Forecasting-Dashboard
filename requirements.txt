@@ -4,5 +4,5 @@ matplotlib==3.9.1
 numpy==2.0.0
 pandas==2.2.2
 plotly==5.22.0
-
+gunicorn==20.1.0
 
